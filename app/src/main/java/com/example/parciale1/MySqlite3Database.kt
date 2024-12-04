@@ -20,7 +20,7 @@ class MySqlite3Database(context: Context) : SQLiteOpenHelper(context, DATABASE_N
     }
 
     override fun onCreate(db: SQLiteDatabase) {
-        val createTable = "CREATE TABLE $TABLE_NAME (" +
+        val createTable = "CREATE TABLE IF NOT EXISTS $TABLE_NAME (" +
                 "$COLUMN_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "$COLUMN_NAME TEXT, " +
                 "$COLUMN_DAY TEXT, " +
@@ -47,28 +47,28 @@ class MySqlite3Database(context: Context) : SQLiteOpenHelper(context, DATABASE_N
     }
 
     fun readAllData(): List<Schedule> {
-    val list = mutableListOf<Schedule>()
-    val db = this.readableDatabase
-    val cursor: Cursor = db.query(
-        TABLE_NAME, null, null, null,
-        null, null, "$COLUMN_DAY ASC, $COLUMN_START_TIME ASC"
-    )
+        val list = mutableListOf<Schedule>()
+        val db = this.readableDatabase
+        val cursor: Cursor = db.query(
+            TABLE_NAME, null, null, null,
+            null, null, "$COLUMN_DAY ASC, $COLUMN_START_TIME ASC"
+        )
 
-    if (cursor.moveToFirst()) {
-        do {
-            val schedule = Schedule(
-                cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME)),
-                cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DAY)),
-                cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_START_TIME)),
-                cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_END_TIME))
-            )
-            list.add(schedule)
-        } while (cursor.moveToNext())
+        if (cursor.moveToFirst()) {
+            do {
+                val schedule = Schedule(
+                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DAY)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_START_TIME)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_END_TIME))
+                )
+                list.add(schedule)
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+        db.close()
+        return list
     }
-    cursor.close()
-    db.close()
-    return list
-}
     fun readData(day: String): List<Schedule> {
     val list = mutableListOf<Schedule>()
     val db = this.readableDatabase
