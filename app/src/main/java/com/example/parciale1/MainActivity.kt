@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.parciale1.databinding.ActivityMainBinding
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -15,15 +14,22 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Configuración del botón para abrir la pantalla "Añadir Horario"
+        // Botón para crear horarios
         binding.createScheduleButton.setOnClickListener {
             val intent = Intent(this, AddScheduleActivity::class.java)
             startActivity(intent)
         }
 
-        // Configuración del botón para abrir la pantalla "Ver Horario" (opcional, en desarrollo)
+        // Botón para ver los horarios guardados
         binding.viewScheduleButton.setOnClickListener {
-            // Aquí puedes agregar la lógica para mostrar los horarios guardados
+            val intent = Intent(this, ViewScheduleActivity::class.java)
+            startActivity(intent)
+        }
+
+        // Botón para ver la asignatura actual
+        binding.currentSubjectButton.setOnClickListener {
+            val intent = Intent(this, CurrentSubjectActivity::class.java)
+            startActivity(intent)
         }
     }
 }

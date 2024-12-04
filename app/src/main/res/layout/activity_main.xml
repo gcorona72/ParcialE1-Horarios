@@ -15,6 +15,12 @@
         android:layout_height="wrap_content"
         android:text="Ver Horario" />
 
+    <Button
+        android:id="@+id/currentSubjectButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¿Qué toca ahora?" />
+
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
