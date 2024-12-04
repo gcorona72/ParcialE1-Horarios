@@ -2,9 +2,7 @@ package com.example.parciale1
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 
 class CreateScheduleFragment : Fragment(R.layout.fragment_create_schedule) {
@@ -16,22 +14,21 @@ class CreateScheduleFragment : Fragment(R.layout.fragment_create_schedule) {
         db = MySqlite3Database(requireContext())
 
         val nameEditText = view.findViewById<EditText>(R.id.editTextName)
-        val dayEditText = view.findViewById<EditText>(R.id.editTextDay)
+        val daySpinner = view.findViewById<Spinner>(R.id.spinnerDay)
         val startTimeEditText = view.findViewById<EditText>(R.id.editTextStartTime)
         val endTimeEditText = view.findViewById<EditText>(R.id.editTextEndTime)
         val saveButton = view.findViewById<Button>(R.id.buttonSave)
 
         saveButton.setOnClickListener {
             val name = nameEditText.text.toString().trim()
-            val day = dayEditText.text.toString().trim()
+            val day = daySpinner.selectedItem.toString()
             val startTime = startTimeEditText.text.toString().trim()
             val endTime = endTimeEditText.text.toString().trim()
 
-            if (name.isNotEmpty() && day.isNotEmpty() && startTime.isNotEmpty() && endTime.isNotEmpty()) {
+            if (name.isNotEmpty() && startTime.isNotEmpty() && endTime.isNotEmpty()) {
                 db.insertData(name, day, startTime, endTime)
                 Toast.makeText(requireContext(), "Asignatura guardada", Toast.LENGTH_SHORT).show()
                 nameEditText.text.clear()
-                dayEditText.text.clear()
                 startTimeEditText.text.clear()
                 endTimeEditText.text.clear()
             } else {

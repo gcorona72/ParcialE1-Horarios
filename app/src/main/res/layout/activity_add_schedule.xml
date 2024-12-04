@@ -18,11 +18,23 @@
         android:layout_height="wrap_content"
         android:hint="Asignatura" />
 
-    <EditText
-        android:id="@+id/timeEditText"
+    <Spinner
+        android:id="@+id/daySpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Hora (ej. 10:00 AM)" />
+        android:entries="@array/days_of_week" />
+
+    <EditText
+        android:id="@+id/startTimeEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Hora de inicio (ej. 10:00 AM)" />
+
+    <EditText
+        android:id="@+id/endTimeEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Hora de fin (ej. 11:00 AM)" />
 
     <Button
         android:id="@+id/saveButton"
